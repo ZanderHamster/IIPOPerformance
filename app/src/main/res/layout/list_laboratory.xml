@@ -10,4 +10,14 @@
         android:hint="default"
         android:layout_height="wrap_content"
         android:id="@+id/name" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/surname"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/name"
+        android:layout_toEndOf="@+id/name"
+        android:paddingLeft="5dp" />
 </RelativeLayout>

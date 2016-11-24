@@ -1,6 +1,5 @@
 package edu.bstu.iipo.a13ivt1.iipoperformance;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import edu.bstu.iipo.a13ivt1.iipoperformance.CreditFragments.FragmentCredit;
 import edu.bstu.iipo.a13ivt1.iipoperformance.ExamFragments.FragmentExam;

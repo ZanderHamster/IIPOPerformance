@@ -4,9 +4,8 @@ import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
-import edu.bstu.iipo.a13ivt1.iipoperformance.DataBase.DB;
 
-@Table(database = DB.class)
+@Table(database = UniversityDB.class)
 public class Students extends BaseModel{
     @Column
     @PrimaryKey(autoincrement = true)
@@ -15,6 +14,7 @@ public class Students extends BaseModel{
     @Column
     String name;
 
+
     public String getName() {
         return name;
     }
@@ -22,4 +22,5 @@ public class Students extends BaseModel{
     public void setName(String name) {
         this.name = name;
     }
+
 }

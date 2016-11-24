@@ -9,8 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
+import com.raizlabs.android.dbflow.sql.language.Select;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.bstu.iipo.a13ivt1.iipoperformance.DataBase.Students;
+import edu.bstu.iipo.a13ivt1.iipoperformance.DataBase.UniversityDB;
 import edu.bstu.iipo.a13ivt1.iipoperformance.R;
 
 public class FragmentLaboratory extends Fragment {
@@ -43,13 +48,28 @@ public class FragmentLaboratory extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_laboratory, container, false);
         getActivity().setTitle(getString(R.string.laboratory));
+//        Students student = new Students();
+//        student.setName("Давид");
+//        student.save();
+//        Students student2 = new Students();
+//        student2.setName("Дима");
+//        student2.save();
 
-        ArrayList<HelpLaboratory> infoItem = new ArrayList<HelpLaboratory>();
-        infoItem.add(new HelpLaboratory("David"));
-        infoItem.add(new HelpLaboratory("Nikola"));
+       Students students = new Students();
+        students.setName("Vika2");
+        students.save();
 
+        List<Students> studentses = new Select().from(Students.class).where().queryList();
         ListView listView = (ListView) view.findViewById(R.id.list_laboratiry);
-        ArrayAdapter<HelpLaboratory> listViewAdapter = new AdapterLaboratory(getActivity(),R.layout.list_laboratory,infoItem);
+        // Список который выводится на экран
+        ArrayList<Students> arrayList = new ArrayList<Students>();
+        for (int i = 0; i < studentses.size(); i++) {
+//             studentses.get(i).delete(); //Удаление всех записей из таблицы
+            arrayList.add(studentses.get(i));
+        }
+
+//        ListView listView = (ListView) view.findViewById(R.id.list_laboratiry);
+        ArrayAdapter<Students> listViewAdapter = new AdapterLaboratory(getActivity(),R.layout.list_laboratory,arrayList);
         listView.setAdapter(listViewAdapter);
         return view;
     }
