@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/lecture"
+            android:icon="@drawable/ic_stat_name"
+            android:title="@string/lecture"/>
+        <item
+            android:id="@+id/laboratory"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/laboratory"/>
+        <item
+            android:id="@+id/seminar"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/seminar"/>
+        <item
+            android:id="@+id/credit"
+            android:icon="@drawable/ic_menu_share"
+            android:title="@string/credit"/>
+        <item
+            android:id="@+id/exam"
+            android:icon="@drawable/ic_menu_send"
+            android:title="@string/exam"/>
+    </group>
+</menu>

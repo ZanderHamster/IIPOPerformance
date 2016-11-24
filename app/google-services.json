@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "699123913158",
+    "firebase_url": "https://test-2c9fb.firebaseio.com",
+    "project_id": "test-2c9fb",
+    "storage_bucket": "test-2c9fb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699123913158:android:1e87e83d26cc879e",
+        "android_client_info": {
+          "package_name": "edu.bstu.iipo.a13ivt1.iipoperformance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "699123913158-ab7d4kg1tl1mm9po8d187pps0f55e84o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.bstu.iipo.a13ivt1.iipoperformance",
+            "certificate_hash": "FE85F4EAA39E9B997AA132F1EE8F2087AB6A8467"
+          }
+        },
+        {
+          "client_id": "699123913158-ci41725vvrmt5r2v3r6sm7hr8tpmcog1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFEmY69xKhKprAgPIzw45r24-yqxEWSeY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "699123913158-ci41725vvrmt5r2v3r6sm7hr8tpmcog1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
