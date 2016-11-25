@@ -5,11 +5,18 @@ import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
+/**
+ * Created by David on 25.11.2016.
+ */
 @Table(database = UniversityDB.class)
-public class Students extends BaseModel{
+public class TestStudent extends BaseModel {
     @Column
     @PrimaryKey(autoincrement = true)
     int id;
+
+    public int getId() {
+        return id;
+    }
 
     @Column
     String name;
@@ -17,17 +24,20 @@ public class Students extends BaseModel{
     @Column
     String surname;
 
-    public String getSurname() {
-        return surname;
-    }
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
 
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 }

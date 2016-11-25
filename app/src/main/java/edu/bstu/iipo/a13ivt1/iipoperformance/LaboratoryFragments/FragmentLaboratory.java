@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.raizlabs.android.dbflow.sql.language.Select;
 
@@ -15,6 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.bstu.iipo.a13ivt1.iipoperformance.DataBase.Students;
+import edu.bstu.iipo.a13ivt1.iipoperformance.DataBase.Students_Table;
+import edu.bstu.iipo.a13ivt1.iipoperformance.DataBase.TestStudent;
+import edu.bstu.iipo.a13ivt1.iipoperformance.DataBase.TestStudent_Table;
 import edu.bstu.iipo.a13ivt1.iipoperformance.DataBase.UniversityDB;
 import edu.bstu.iipo.a13ivt1.iipoperformance.R;
 
@@ -48,31 +54,59 @@ public class FragmentLaboratory extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_laboratory, container, false);
         getActivity().setTitle(getString(R.string.laboratory));
-//        Students student = new Students();
-//        student.setName("Давид");
-//        student.save();
-//        Students student2 = new Students();
-//        student2.setName("Дима");
-//        student2.save();
 
-       Students students = new Students();
-        students.setName("Vika2");
-        students.save();
+//        for (int i = 0; i < 19; i++) {
+//            TestStudent students = new TestStudent();
+//            students.setName("Name "+(i+1));
+//            students.setSurname("Surname "+(i+1));
+//            students.save();
+//        }
 
-        List<Students> studentses = new Select().from(Students.class).where().queryList();
-        ListView listView = (ListView) view.findViewById(R.id.list_laboratiry);
-        // Список который выводится на экран
-        ArrayList<Students> arrayList = new ArrayList<Students>();
+
+        final ArrayAdapter<TestStudent> listViewAdapter = new AdapterLaboratory(getActivity(),R.layout.list_laboratory,ShowAllRecords());
+        final ListView listView=(ListView) view.findViewById(R.id.list_laboratiry);
+        listView.setAdapter(listViewAdapter);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                List<TestStudent> s = new Select().from(TestStudent.class).where(TestStudent_Table.id.is(((TestStudent) parent.getAdapter().getItem(position)).getId())).queryList();
+
+                s.get(0).setName(s.get(0).getName()+" Edit");
+                s.get(0).save();
+
+                listViewAdapter.notifyDataSetChanged();// это не работает
+                return true;
+            }
+        });
+        return view;
+    }
+
+
+    // Удаление всех записей из таблицы TestStudent (возвращает пустой список)
+    public ArrayList<TestStudent> ClearAllRecords(){
+        ArrayList<TestStudent> arrayList = new ArrayList<TestStudent>();
+        List<TestStudent> studentses = new Select().from(TestStudent.class).where().queryList();
         for (int i = 0; i < studentses.size(); i++) {
-//             studentses.get(i).delete(); //Удаление всех записей из таблицы
+             studentses.get(i).delete(); //Удаление всех записей из таблицы
+        }
+        for (int i = 0; i < studentses.size(); i++) {
+             arrayList.add(studentses.get(i));
+        }
+
+        return arrayList;
+    }
+
+    // Отображение всех записей из таблицы TestStudent (возвращает список со всеми элементами таблицы)
+    public ArrayList<TestStudent> ShowAllRecords(){
+        ArrayList<TestStudent> arrayList = new ArrayList<TestStudent>();
+        List<TestStudent> studentses = new Select().from(TestStudent.class).where().queryList();
+        for (int i = 0; i < studentses.size(); i++) {
             arrayList.add(studentses.get(i));
         }
 
-//        ListView listView = (ListView) view.findViewById(R.id.list_laboratiry);
-        ArrayAdapter<Students> listViewAdapter = new AdapterLaboratory(getActivity(),R.layout.list_laboratory,arrayList);
-        listView.setAdapter(listViewAdapter);
-        return view;
+        return arrayList;
     }
+
 
     @Override
     public void onDetach() {
