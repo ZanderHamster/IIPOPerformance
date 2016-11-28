@@ -10,4 +10,9 @@
     <string name="seminar">Семинар</string>
     <string name="credit">Зачет</string>
     <string name="exam">Экзамен</string>
+    <string name="delete">Удалить</string>
+    <string name="edit">Редактировать</string>
+    <string name="save">Сохранить</string>
+    <string name="cancel">Отменить</string>
+    <string name="title">Заголовок</string>
 </resources>

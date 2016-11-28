@@ -6,13 +6,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
-import android.text.InputType;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -22,12 +23,9 @@ import com.raizlabs.android.dbflow.sql.language.Select;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.bstu.iipo.a13ivt1.iipoperformance.DataBase.Students;
-import edu.bstu.iipo.a13ivt1.iipoperformance.DataBase.Students_Table;
+
 import edu.bstu.iipo.a13ivt1.iipoperformance.DataBase.TestStudent;
 import edu.bstu.iipo.a13ivt1.iipoperformance.DataBase.TestStudent_Table;
-import edu.bstu.iipo.a13ivt1.iipoperformance.DataBase.UniversityDB;
-import edu.bstu.iipo.a13ivt1.iipoperformance.NavigationActivity;
 import edu.bstu.iipo.a13ivt1.iipoperformance.R;
 
 public class FragmentLaboratory extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
@@ -41,7 +39,7 @@ public class FragmentLaboratory extends Fragment implements SwipeRefreshLayout.O
     private OnFragmentInteractionListener mListener;
     public ArrayAdapter<TestStudent> listViewAdapter;
     public AdapterLaboratory listViewAdapter2;
-
+    private MenuInflater menuInflater;
 
 
     public static FragmentLaboratory newInstance() {
@@ -82,6 +80,7 @@ public class FragmentLaboratory extends Fragment implements SwipeRefreshLayout.O
 
         final ListView listView=(ListView) view.findViewById(R.id.list_laboratiry);
         listView.setAdapter(listViewAdapter);
+        registerForContextMenu(listView);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -93,14 +92,14 @@ public class FragmentLaboratory extends Fragment implements SwipeRefreshLayout.O
 
                 final EditText edName = (EditText) dialogView.findViewById(R.id.editTextName);
                 final EditText edSurname = (EditText) dialogView.findViewById(R.id.editTextSurname);
-                builder.setTitle("Заголовок")
-                        .setNegativeButton("Отменить", new DialogInterface.OnClickListener() {
+                builder.setTitle(R.string.edit)
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
                             }
                         })
-                        .setPositiveButton("Сохранить", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 s.get(0).setName(edName.getText().toString());
@@ -122,6 +121,28 @@ public class FragmentLaboratory extends Fragment implements SwipeRefreshLayout.O
         return view;
     }
 
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()){
+            case R.id.edit:
+                Toast.makeText(getContext(),"edit",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.delete:
+                Toast.makeText(getContext(),"delete",Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                return super.onContextItemSelected(item);
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+    }
 
     // Удаление всех записей из таблицы TestStudent (возвращает пустой список)
     public ArrayList<TestStudent> ClearAllRecords(){
@@ -160,6 +181,10 @@ public class FragmentLaboratory extends Fragment implements SwipeRefreshLayout.O
         Toast.makeText(getContext(),"Обновилось",Toast.LENGTH_SHORT).show();
         listViewAdapter.notifyDataSetChanged();
         swipeLayout.setRefreshing(false);
+    }
+
+    public MenuInflater getMenuInflater() {
+        return menuInflater;
     }
 
 
