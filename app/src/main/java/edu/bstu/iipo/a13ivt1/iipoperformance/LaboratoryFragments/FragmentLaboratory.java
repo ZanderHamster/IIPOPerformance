@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -65,7 +66,6 @@ public class FragmentLaboratory extends Fragment implements SwipeRefreshLayout.O
         View view = inflater.inflate(R.layout.fragment_laboratory, container, false);
         swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
         swipeLayout.setOnRefreshListener(this);
-        getActivity().setTitle(getString(R.string.laboratory));
 
 //        for (int i = 0; i < 19; i++) {
 //            TestStudent students = new TestStudent();
@@ -191,5 +191,21 @@ public class FragmentLaboratory extends Fragment implements SwipeRefreshLayout.O
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        getMenuInflater().inflate(R.menu.navigation,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==R.id.action_add) Toast.makeText(getContext(),"23",Toast.LENGTH_SHORT).show();
+//        switch (item.getItemId()){
+//            case R.id.action_add:
+//                Toast.makeText(getContext(),"23",Toast.LENGTH_SHORT).show();
+//                break;
+//        }
+        return  super.onOptionsItemSelected(item);
     }
 }

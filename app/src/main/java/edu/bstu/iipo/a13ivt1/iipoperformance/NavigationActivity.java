@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import edu.bstu.iipo.a13ivt1.iipoperformance.CreditFragments.FragmentCredit;
 import edu.bstu.iipo.a13ivt1.iipoperformance.ExamFragments.FragmentExam;
@@ -82,8 +83,8 @@ public class NavigationActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_add) {
+           return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -99,6 +100,7 @@ public class NavigationActivity extends AppCompatActivity
         //
         if (id == R.id.lecture) {
             fragmentTransaction.replace(R.id.content_navigation,fragmentLecture);
+
 
         } else if (id == R.id.laboratory) {
             fragmentTransaction.replace(R.id.content_navigation,fragmentLaboratory);

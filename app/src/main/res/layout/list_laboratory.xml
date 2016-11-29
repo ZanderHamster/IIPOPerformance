@@ -20,4 +20,5 @@
         android:layout_toRightOf="@+id/name"
         android:layout_toEndOf="@+id/name"
         android:paddingLeft="5dp" />
+
 </RelativeLayout>
