@@ -100,19 +100,23 @@ public class NavigationActivity extends AppCompatActivity
         //
         if (id == R.id.lecture) {
             fragmentTransaction.replace(R.id.content_navigation,fragmentLecture);
-
+            fragmentTransaction.addToBackStack(null);
 
         } else if (id == R.id.laboratory) {
             fragmentTransaction.replace(R.id.content_navigation,fragmentLaboratory);
+            fragmentTransaction.addToBackStack(null);
 
         } else if (id == R.id.seminar) {
             fragmentTransaction.replace(R.id.content_navigation,fragmentSeminar);
+            fragmentTransaction.addToBackStack(null);
 
         } else if (id == R.id.credit) {
             fragmentTransaction.replace(R.id.content_navigation,fragmentCredit);
+            fragmentTransaction.addToBackStack(null);
 
         } else if (id == R.id.exam) {
             fragmentTransaction.replace(R.id.content_navigation,fragmentExam);
+            fragmentTransaction.addToBackStack(null);
 
         }
         fragmentTransaction.commit();
