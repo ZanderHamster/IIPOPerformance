@@ -27,6 +27,7 @@ import java.util.List;
 
 import edu.bstu.iipo.a13ivt1.iipoperformance.DataBase.TestStudent;
 import edu.bstu.iipo.a13ivt1.iipoperformance.DataBase.TestStudent_Table;
+import edu.bstu.iipo.a13ivt1.iipoperformance.LaboratoryFragments.LabsList.LabsListFragment;
 import edu.bstu.iipo.a13ivt1.iipoperformance.R;
 
 public class FragmentLaboratory extends Fragment {
@@ -37,6 +38,7 @@ public class FragmentLaboratory extends Fragment {
     public AdapterLaboratory listViewAdapter2;
 
     FragmentTransaction fragmentTransaction;
+    LabsListFragment labsListFragment = new LabsListFragment();
 
     public static FragmentLaboratory newInstance() {
         FragmentLaboratory fragment = new FragmentLaboratory();
@@ -70,7 +72,9 @@ public class FragmentLaboratory extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getContext(),"test",Toast.LENGTH_SHORT).show();
-                //fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.content_navigation,labsListFragment);
+                fragmentTransaction.commit();
             }
         });
         return view;

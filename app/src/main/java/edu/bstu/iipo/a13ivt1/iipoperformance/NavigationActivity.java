@@ -117,7 +117,6 @@ public class NavigationActivity extends AppCompatActivity
         } else if (id == R.id.exam) {
             fragmentTransaction.replace(R.id.content_navigation,fragmentExam);
             fragmentTransaction.addToBackStack(null);
-
         }
         fragmentTransaction.commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -5,9 +5,6 @@ import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
-/**
- * Created by David on 25.11.2016.
- */
 @Table(database = UniversityDB.class)
 public class TestStudent extends BaseModel {
     @Column
