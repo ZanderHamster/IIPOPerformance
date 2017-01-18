@@ -5,4 +5,12 @@
         android:id="@+id/action_add"
         android:title="@string/action_settings"
         android:icon="@drawable/ic_add"/>
+    <item
+        android:id="@+id/clearDB"
+        android:title="Отчистить БД"
+        />
+    <item
+        android:id="@+id/downloadDB"
+        android:title="Загрузить БД"
+        />
 </menu>

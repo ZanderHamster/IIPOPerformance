@@ -16,29 +16,34 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.raizlabs.android.dbflow.sql.language.Select;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
+import edu.bstu.iipo.a13ivt1.iipoperformance.DataBase.Students;
 import edu.bstu.iipo.a13ivt1.iipoperformance.DataBase.TestStudent;
 import edu.bstu.iipo.a13ivt1.iipoperformance.DataBase.TestStudent_Table;
+import edu.bstu.iipo.a13ivt1.iipoperformance.ExpandableListAdapter;
 import edu.bstu.iipo.a13ivt1.iipoperformance.LaboratoryFragments.LabsList.LabsListFragment;
 import edu.bstu.iipo.a13ivt1.iipoperformance.R;
 
 public class FragmentLaboratory extends Fragment {
-    // final List<TestStudent> s = new Select().from(TestStudent.class).where(TestStudent_Table.id.is(((TestStudent) parent.getAdapter().getItem(position)).getId())).queryList();
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    public AdapterLaboratory listViewAdapter2;
+    ExpandableListAdapter listAdapter;
+    ExpandableListView expListView;
+    List<Students> listDataHeader;
+    HashMap<String, List<String>> listDataChild;
 
-    FragmentTransaction fragmentTransaction;
-    LabsListFragment labsListFragment = new LabsListFragment();
+    public AdapterLaboratory2 listViewAdapter2;
 
     public static FragmentLaboratory newInstance() {
         FragmentLaboratory fragment = new FragmentLaboratory();
@@ -64,26 +69,78 @@ public class FragmentLaboratory extends Fragment {
 //            students.save();
 //        }
 
-        listViewAdapter2 = new AdapterLaboratory(getActivity(),R.layout.list_laboratory,ShowAllRecords());
+        listViewAdapter2 = new AdapterLaboratory2(getActivity(),R.layout.list_laboratory,ShowAllRecords());
 
-        final ListView listView=(ListView) view.findViewById(R.id.list_laboratiry);
-        listView.setAdapter(listViewAdapter2);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        expListView = (ExpandableListView) view.findViewById(R.id.lvExp);
+
+        prepareListData();
+        listAdapter = new ExpandableListAdapter(getContext(),listDataHeader,listDataChild);
+        expListView.setAdapter(listAdapter);
+        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(),"test",Toast.LENGTH_SHORT).show();
-                fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.content_navigation,labsListFragment);
-                fragmentTransaction.commit();
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+//                Toast.makeText(getContext(),String.valueOf(listDataHeader.get(groupPosition).getName()),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),
+                        String.valueOf(listDataHeader.get(groupPosition).getName()) +" "+String.valueOf(listDataChild.get(String.valueOf(listDataHeader.get(groupPosition).getId())).get(childPosition)),
+                        Toast.LENGTH_SHORT).show();
+                return false;
             }
         });
+//        final ListView listView=(ListView) view.findViewById(R.id.list_laboratiry);
+//        listView.setAdapter(listViewAdapter2);
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(getContext(),"test",Toast.LENGTH_SHORT).show();
+//            }
+//        });
         return view;
     }
 
+    private void prepareListData(){
+        listDataHeader = ShowAllRecords();
+        listDataChild = new HashMap<String, List<String>>();
+
+        List<String> allLabs = new ArrayList<String>();
+        allLabs.add("Лабораторная работа № 1");
+        allLabs.add("Лабораторная работа № 2");
+        allLabs.add("Лабораторная работа № 3");
+        allLabs.add("Лабораторная работа № 4");
+        allLabs.add("Лабораторная работа № 5");
+
+        for (int i = 0; i < listDataHeader.size(); i++) {
+            listDataChild.put(String.valueOf(listDataHeader.get(i).getId()),allLabs);
+        }
+    }
+//    // Удаление всех записей из таблицы TestStudent (возвращает пустой список)
+//    public ArrayList<TestStudent> ClearAllRecords(){
+//        ArrayList<TestStudent> arrayList = new ArrayList<TestStudent>();
+//        List<TestStudent> studentses = new Select().from(TestStudent.class).where().queryList();
+//        for (int i = 0; i < studentses.size(); i++) {
+//             studentses.get(i).delete(); //Удаление всех записей из таблицы
+//        }
+//        for (int i = 0; i < studentses.size(); i++) {
+//             arrayList.add(studentses.get(i));
+//        }
+//
+//        return arrayList;
+//    }
+//
+//    // Отображение всех записей из таблицы TestStudent (возвращает список со всеми элементами таблицы)
+//    public ArrayList<TestStudent> ShowAllRecords(){
+//        ArrayList<TestStudent> arrayList = new ArrayList<TestStudent>();
+//        List<TestStudent> studentses = new Select().from(TestStudent.class).where().queryList();
+//        for (int i = 0; i < studentses.size(); i++) {
+//            arrayList.add(studentses.get(i));
+//        }
+//
+//        return arrayList;
+//    }
+
     // Удаление всех записей из таблицы TestStudent (возвращает пустой список)
-    public ArrayList<TestStudent> ClearAllRecords(){
-        ArrayList<TestStudent> arrayList = new ArrayList<TestStudent>();
-        List<TestStudent> studentses = new Select().from(TestStudent.class).where().queryList();
+    public ArrayList<Students> ClearAllRecords(){
+        ArrayList<Students> arrayList = new ArrayList<Students>();
+        List<Students> studentses = new Select().from(Students.class).where().queryList();
         for (int i = 0; i < studentses.size(); i++) {
              studentses.get(i).delete(); //Удаление всех записей из таблицы
         }
@@ -95,9 +152,9 @@ public class FragmentLaboratory extends Fragment {
     }
 
     // Отображение всех записей из таблицы TestStudent (возвращает список со всеми элементами таблицы)
-    public ArrayList<TestStudent> ShowAllRecords(){
-        ArrayList<TestStudent> arrayList = new ArrayList<TestStudent>();
-        List<TestStudent> studentses = new Select().from(TestStudent.class).where().queryList();
+    public ArrayList<Students> ShowAllRecords(){
+        ArrayList<Students> arrayList = new ArrayList<Students>();
+        List<Students> studentses = new Select().from(Students.class).where().queryList();
         for (int i = 0; i < studentses.size(); i++) {
             arrayList.add(studentses.get(i));
         }
