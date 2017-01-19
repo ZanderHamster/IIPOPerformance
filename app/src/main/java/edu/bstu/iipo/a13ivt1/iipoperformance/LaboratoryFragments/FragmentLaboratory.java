@@ -55,11 +55,11 @@ public class FragmentLaboratory extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle(R.string.laboratory);
     }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        getActivity().setTitle(R.string.laboratory);
         View view = inflater.inflate(R.layout.fragment_laboratory, container, false);
 
 //        for (int i = 0; i < 19; i++) {
@@ -79,10 +79,11 @@ public class FragmentLaboratory extends Fragment {
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-//                Toast.makeText(getContext(),String.valueOf(listDataHeader.get(groupPosition).getName()),Toast.LENGTH_SHORT).show();
                 Toast.makeText(getContext(),
                         String.valueOf(listDataHeader.get(groupPosition).getName()) +" "+String.valueOf(listDataChild.get(String.valueOf(listDataHeader.get(groupPosition).getId())).get(childPosition)),
                         Toast.LENGTH_SHORT).show();
+
+//                listViewAdapter2.notifyDataSetChanged();
                 return false;
             }
         });
